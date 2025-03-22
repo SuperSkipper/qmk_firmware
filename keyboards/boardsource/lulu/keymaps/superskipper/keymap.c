@@ -14,7 +14,7 @@ enum layers {
 #define LOWER MO(_LOWER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
- 
+
 /* QWERTY
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | ESC  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |  `   |
@@ -104,5 +104,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+   switch (get_highest_layer(state)) {
+    case _RAISE:
+        rgb_matrix_set_color_all( RGB_WHITE );
+        break;
+    case _LOWER:
+        rgb_matrix_set_color_all( RGB_WHITE );
+        break;
+    case _ADJUST:
+        rgb_matrix_set_color_all( RGB_WHITE );
+        break;
+    default: //  for any other layers, or the default layer
+        rgb_matrix_set_color_all( RGB_WHITE );
+        break;
+    }
+  return state;
 }
