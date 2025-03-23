@@ -8,15 +8,23 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
         if (clockwise) {
-            tap_code(KC_VOLU);
+            tap_code(KC_UP);
         } else {
-            tap_code(KC_VOLD);
+            tap_code(KC_DOWN);
         }
     } else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
+        if (get_highest_layer(layer_state) > 0) {
+            if (clockwise) {
+                tap_code(KC_UP);
+            } else {
+                tap_code(KC_DOWN);
+            }
         } else {
-            tap_code(KC_PGUP);
+            if (clockwise) {
+                tap_code(KC_LEFT);
+            } else {
+                tap_code(KC_RGHT);
+            }
         }
     }
     return true;

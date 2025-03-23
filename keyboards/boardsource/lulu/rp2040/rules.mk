@@ -1,1 +1,3 @@
 SRC += lib/oled.c
+RGB_MATRIX_CUSTOM_USER = yes
+CONSOLE_ENABLE = yes
