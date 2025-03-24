@@ -1,7 +1,7 @@
 RGB_MATRIX_EFFECT(DEFAULT)
 RGB_MATRIX_EFFECT(GAME)
 RGB_MATRIX_EFFECT(LOWER)
-
+RGB_MATRIX_EFFECT(RAISE)
 // Step 2.
 // Define effects inside the `RGB_MATRIX_CUSTOM_EFFECT_IMPLS` ifdef block
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
@@ -30,12 +30,14 @@ static bool GAME(effect_params_t* params) {
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-static bool LOWER(effect_params_t* params) {
+static bool RAISE(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
-    for (uint8_t i = 6; i <= 10; i++) {
+    for (uint8_t i = 6; i <= 11; i++) {
         rgb_matrix_set_color(i, 0,0,80);
     }
-    for (uint8_t i = 41; i <= 47; i++) {
+    rgb_matrix_set_color(49, 0,0,80);
+    rgb_matrix_set_color(50, 0,0,80);
+    for (uint8_t i = 41; i <= 45; i++) {
         rgb_matrix_set_color(i, 0,0,80);
     }
     for (uint8_t i = 54; i <= 57; i++) {
@@ -45,6 +47,14 @@ static bool LOWER(effect_params_t* params) {
         rgb_matrix_set_color(i, 0,0,80);
     }
     return rgb_matrix_check_finished_leds(led_max);
-  }
+}
+
+static bool LOWER(effect_params_t* params) {
+    RGB_MATRIX_USE_LIMITS(led_min, led_max);
+    for (uint8_t i = 54; i <= 57; i++) {
+        rgb_matrix_set_color(i, 0,0,80);
+    }
+    return rgb_matrix_check_finished_leds(led_max);
+}
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
